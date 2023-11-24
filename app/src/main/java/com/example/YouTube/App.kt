@@ -1,4 +1,4 @@
-package com.example.newcounterofsixmonth
+package com.example.YouTube
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

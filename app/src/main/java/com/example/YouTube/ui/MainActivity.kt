@@ -1,13 +1,16 @@
-package com.example.newcounterofsixmonth.ui
+package com.example.YouTube.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.counterofsixmonth.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : FragmentActivity() {
+
+    private lateinit var adapter: FragmentStateAdapter
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
         ActivityMainBinding.inflate(layoutInflater)
@@ -19,17 +22,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        binding.btnInc.setOnClickListener {
-            viewModel.counterLV.value?.minus(1)
-            viewModel.inc()
+        adapter = adapter
+
+        viewModel.getPlaylist()
+        viewModel.playlistsState.observe(this) {
         }
 
-        binding.btnInc.setOnClickListener {
-            viewModel.dec()
-        }
-
-        viewModel.counterLV.observe(this) { result ->
-            binding.tvResult.text = result.toString()
-        }
     }
 }

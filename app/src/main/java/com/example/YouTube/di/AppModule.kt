@@ -1,6 +1,6 @@
-package com.example.newcounterofsixmonth.di
+package com.example.YouTube.di
 
-import com.example.newcounterofsixmonth.data.YouTubeApiService
+import com.example.YouTube.data.service.YouTubeApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
