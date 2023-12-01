@@ -67,4 +67,4 @@ fun provideYoutubeApiService(
 
 fun provideYoutubeRepository(
     service: YouTubeApiService
-) = YouTubeApiRepo(service)
+) = YouTubeApiRepo(service).
