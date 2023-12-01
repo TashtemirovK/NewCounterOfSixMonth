@@ -1,5 +1,6 @@
 package com.example.YouTube.di
 
+import com.example.YouTube.data.repo.YouTubeApiRepo
 import com.example.YouTube.data.service.YouTubeApiService
 import dagger.Module
 import dagger.Provides
@@ -16,8 +17,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    @Singleton
-    @Provides
+
     fun provideRetrofitClient(
         okHttpClient: OkHttpClient
     ): Retrofit = Retrofit.Builder()
@@ -26,8 +26,7 @@ object AppModule {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    @Singleton
-    @Provides
+
     fun provideOkhttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient =
         OkHttpClient.Builder()
             .connectTimeout(10L, TimeUnit.SECONDS)
@@ -37,14 +36,18 @@ object AppModule {
             .build()
 
 
-    @Singleton
-    @Provides
+
     fun provideLoggingInterceptor() =
         HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
 
-}
 
-    @Singleton
-    @Provides
-    fun provideYoutubeApiService(retrofit: Retrofit
+
+    fun provideYoutubeApiService(
+        retrofit: Retrofit
     ): YouTubeApiService = retrofit.create(YouTubeApiService::class.java)
+
+
+    fun provideYoutubeRepository(
+        service: YouTubeApiService
+    ) = YouTubeApiRepo(service)
+}
