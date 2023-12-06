@@ -19,7 +19,11 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "BASE_URL", "\"https://www.googleapis.com/youtube/v3/\"")
-        buildConfigField("String", "API_KEY", "\"AIzaSyDUIttqi6h6E0-YHR17pEb7cem7y0qhNY\"")
+
+        buildConfigField(
+            "String",
+            "API_KEY",
+            "\"AIzaSyDUIttqi6h6E0-YHR17pEb7cem7y0qhNY\"")
     }
 
     buildTypes {

@@ -5,6 +5,8 @@ import androidx.lifecycle.liveData
 import com.example.YouTube.data.model.BaseYouTubeResponse
 import com.example.YouTube.data.model.Item
 import com.example.YouTube.data.service.YouTubeApiService
+import com.example.YouTube.data.utils.Constants
+import com.example.YouTube.data.utils.Constants.YOUTUBE_RESPONSE_TYPE
 import com.example.YouTube.data.utils.Resource
 import kotlinx.coroutines.Dispatchers
 import okhttp3.Dispatcher
@@ -20,18 +22,18 @@ class YouTubeApiRepo (
         emit(Resource.Loading())
         try {
             val response = service.getPlaylists(
-                "AIzaSyBQxS_0xp53642D_nS9qsgLwhoXyrU8tyE",
-                "snippet, contentDetails",
-                "UCKNTZMRHPLXfqlbd0I7mCkg",
-                "25"
+                BuildConfig.API_KEY,
+                Constants.YOUTUBE_RESPONSE_TYPE,
+                Constants.CHANNEL_ID,
+                Constants.MAX_RESULT
             )
             if (response.body() != null && response.isSuccessful) {
-                emit(Resource.Success(response.body()!!.items)) 
+                emit(Resource.Success(response.body()!!.items))
             } else {
-                emit(Resource.Error("Unknown error"))
+                emit(Resource.Error(Constants.UNKNOWN_ERROR))
             }
         } catch (e: Exception) {
-            emit(Resource.Error(e.localizedMessage ?: "Unknown error"))
+            emit(Resource.Error(e.localizedMessage ?: Constants.UNKNOWN_ERROR))
         }
     }
 }

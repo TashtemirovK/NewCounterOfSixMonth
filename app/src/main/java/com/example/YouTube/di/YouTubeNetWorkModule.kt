@@ -2,41 +2,30 @@ package com.example.YouTube.di
 
 import com.example.YouTube.data.repo.YouTubeApiRepo
 import com.example.YouTube.data.service.YouTubeApiService
-import com.example.YouTube.ui.MainViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 val youTubeNetworkModule = module {
+
     //NetWork
     single {
-        AppModule.provideYoutubeApiService(get())
+        provideYoutubeApiService(get())
     }
 
     single {
-        AppModule.provideRetrofitClient(get())
+        provideRetrofitClient(get())
     }
 
     single {
-        AppModule.provideOkhttpClient(get())
+        provideOkhttpClient(get())
     }
 
     single {
-        AppModule.provideLoggingInterceptor()
-    }
-
-    // Repositories
-    single {
-        provideYoutubeRepository(get())
-    }
-
-    // ViewModel
-    viewModel {
-        MainViewModel(get())
+        provideLoggingInterceptor()
     }
 }
 
@@ -44,7 +33,7 @@ fun provideRetrofitClient(
     okHttpClient: OkHttpClient
 ): Retrofit = Retrofit.Builder()
     .client(okHttpClient)
-    .baseUrl("https://rickandmortyapi.com/api")
+    .baseUrl(BuildConfig.BASE_URL)
     .addConverterFactory(GsonConverterFactory.create())
     .build()
 
@@ -61,10 +50,10 @@ fun provideLoggingInterceptor() =
     HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
 
 
-fun provideYoutubeApiService(
+fun provideYoutubeApiService( 
     retrofit: Retrofit
 ): YouTubeApiService = retrofit.create(YouTubeApiService::class.java)
 
 fun provideYoutubeRepository(
     service: YouTubeApiService
-) = YouTubeApiRepo(service).
+) = YouTubeApiRepo(service)

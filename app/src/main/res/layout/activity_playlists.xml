@@ -6,19 +6,12 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.example.YouTube.ui.MainActivity">
+    tools:context="com.example.YouTube.ui.playlists.PlaylistsActivity">
 
-    <TextView
-        android:id="@+id/tv_result"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_playlists"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="56dp"
-        android:text="Hello World!"
-        android:textAlignment="center"
-        android:textSize="32sp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="match_parent" />
 
-        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

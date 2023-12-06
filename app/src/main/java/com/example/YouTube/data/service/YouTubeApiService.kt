@@ -13,6 +13,6 @@ interface YouTubeApiService {
         @Query("key") apiKey: String,
         @Query("part") part: String,
         @Query("channelId") channelId: String,
-        @Query("maxResults") maxResults: String,
+        @Query("maxResults") maxResults: Int,
     ): Response<BaseYouTubeResponse>
 }
