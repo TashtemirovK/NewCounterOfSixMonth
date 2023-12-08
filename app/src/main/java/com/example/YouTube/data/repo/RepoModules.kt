@@ -1,7 +1,9 @@
 package com.example.YouTube.data.repo
 
+import org.koin.dsl.module
+
 class RepoModules {
-    val repoModules = AppModule {
-        single {Repository (get())}
+    val repoModules = module {
+        single { Repository(get()) }
     }
 }
