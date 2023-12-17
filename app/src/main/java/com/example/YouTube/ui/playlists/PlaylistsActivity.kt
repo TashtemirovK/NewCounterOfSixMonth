@@ -1,16 +1,16 @@
 package com.example.YouTube.ui.playlists
 
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.YouTube.data.utils.Resource
 import com.example.YouTube.ui.adapters.PlaylistsAdapter
 import com.example.counterofsixmonth.databinding.ActivityPlaylistsBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class BaselistsActivity : AppCompatActivity() {
+class PlaylistsActivity : AppCompatActivity() {
 
     private val binding by lazy(LazyThreadSafetyMode.NONE) {
         ActivityPlaylistsBinding.inflate(layoutInflater)
@@ -19,21 +19,14 @@ class BaselistsActivity : AppCompatActivity() {
 
     private val playlistsAdapter by lazy { PlaylistsAdapter() }
 
-    
 
     private fun getPlaylists() {
-        viewModel.getPlaylists().observe(this) { state ->
-            when (state) {
-                is Resource.Error -> {
-                    Toast.makeText(this, state.message, Toast.LENGTH_SHORT).show()
-                }
-
-                is Resource.Loading -> {
-                    // show progress bar
-                }
-
-                is Resource.Success -> {
-                    playlistsAdapter.submitList(state.data)
+        lifecycleScope.launch {
+            viewModel.getPlaylists().observe(this@PlaylistsActivity) { data ->
+                data?.let {
+                    playlistsAdapter.submitData(
+                        lifecycle, it
+                    )
                 }
             }
         }
@@ -41,7 +34,7 @@ class BaselistsActivity : AppCompatActivity() {
 
     private fun initPlaylistsRv() = with(binding.rvPlaylists) {
         layoutManager = LinearLayoutManager(
-            this@BaselistsActivity,
+            this@PlaylistsActivity,
             LinearLayoutManager.VERTICAL,
             false
         )

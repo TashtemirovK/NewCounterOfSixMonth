@@ -2,14 +2,15 @@ package com.example.YouTube.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.YouTube.data.model.Item
 import com.example.counterofsixmonth.databinding.ItemPlaylistsBinding
 
-class PlaylistsAdapter : ListAdapter<Item, PlaylistsAdapter.PlaylistsViewHolder>(
-    diffCallback = PlaylistsItemDiffUtils
+class PlaylistsAdapter : PagingDataAdapter<Item, PlaylistsAdapter.PlaylistsViewHolder>(
+     PlaylistsItemDiffUtils
 ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistViewHolder =
@@ -24,7 +25,7 @@ class PlaylistsAdapter : ListAdapter<Item, PlaylistsAdapter.PlaylistsViewHolder>
         )
 
     override fun onBindViewHolder(holder: PlaylistViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        getItem(position)?.let { holder.bind(it) }
     }
 
     class PlaylistViewHolder(val binding: ItemPlaylistsBinding) : ViewHolder(binding.root) {
@@ -35,7 +36,7 @@ class PlaylistsAdapter : ListAdapter<Item, PlaylistsAdapter.PlaylistsViewHolder>
 
     class PlaylistsItemDiffUtils() : DiffUtil.ItemCallback<Item>() {
         override fun areItemsTheSame(oldItem: Item, newItem: Item) = oldItem.id == newItem.id
-        override fun areContentsTheSame(oldItem: Item, neаwItem: Item) = oldItem == newItem
+        override fun areContentsTheSame(oldItem: Item, newItem: Item) = oldItem == newItem
 
     }
 }

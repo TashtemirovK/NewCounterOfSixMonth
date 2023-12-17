@@ -9,6 +9,7 @@ interface YouTubeApiService {
 
     @GET("playlists")
     suspend fun getPlaylists(
+        @Query("nextPage") page: String, 
         @Query("key") apiKey: String,
         @Query("part") part: String,
         @Query("channelId") channelId: String,

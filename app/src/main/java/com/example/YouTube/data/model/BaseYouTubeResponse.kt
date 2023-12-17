@@ -10,6 +10,8 @@ data class BaseYouTubeResponse(
     val items: List<Item>,
     @SerializedName("kind")
     val kind: String,
+    @SerializedName("prevPageToken")
+    val prevPageToken: String,
     @SerializedName("nextPageToken")
     val nextPageToken: String,
     @SerializedName("pageInfo")

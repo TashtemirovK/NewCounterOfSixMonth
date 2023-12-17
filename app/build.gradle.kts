@@ -81,4 +81,7 @@ dependencies {
     //Koin
     val koinVersion = "3.5.0"
     implementation("io.insert-koin:koin-android:$koinVersion")
+
+    //Paging 3
+    implementation("androidx.paging:paging-runtime-ktx:3.2.1")
 }

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.example.YouTube.ui.playlists.BaselistsActivity">
+    tools:context="com.example.YouTube.ui.playlists.PlaylistsActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_playlists"
